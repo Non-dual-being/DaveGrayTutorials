@@ -1,0 +1,15 @@
+body{
+    font-size: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    background-color: papayawhip;
+    color: black;
+}
+
+p{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.span-hightlight{
+    color: #000;
+}

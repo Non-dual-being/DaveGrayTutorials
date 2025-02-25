@@ -1,0 +1,16 @@
+body {
+    padding: 10%;
+    font-size: 2rem;
+}
+
+/* 
+input, button {
+    font: inherit;
+} */  
+ 
+p {
+    text-decoration: justify ;
+    text-indent: 1em;
+    line-height: 1.5;
+    font-weight: normal;
+}

@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  min-height: 400px;
+  margin-inline: auto; /*margin inline controleert linker en rechtsmarge en zergt ervoor dat de deze container in het midden van zn parent zit*/
+  border: 1px solid #000;
+  display: flex;  /*de standaard flex direction is row*/
+  justify-content: flex-start; /*standaard, links*/
+  justify-content: end; /*rechts uitgelijnd*/
+  justify-content: center; /*elke flex in item gecentreerd */
+  justify-content: space-evenly; /*evenveel ruimt overal , deze eigenschap recht zich op de hoofdas, in dit geval row*/
+  /*gap: 1rem; elke flex 1rem astand ertussen */
+  flex-direction: row;
+  flex-flow: row wrap; /*wrapping in the container not outgrowing*/
+  gap: 1rem;
+  align-content: space-evenly;/*gecentreerdd , deze eigenschap recht zich op de secondaire as, in dit geval kolom*/
+
+} 
+
+.box {
+  min-width: 200px;
+  height: 100px;
+  background-color: #000;
+  color: #fff;
+  font-size: 2rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+ 
+  justify-content: center;
+  align-items: center;
+  
+}
+

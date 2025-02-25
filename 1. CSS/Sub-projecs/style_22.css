@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 1.5rem;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+div {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #000;
+  display: grid;
+  place-content: center;
+}
+
+/* div:first-child{
+    background-color: dodgerblue;
+    transform: translateX(-35%);
+    transform: rotateX(180deg);
+    
+}
+div:nth-child(2){
+    background-color: yellow;
+    transform: translateY(-25%);
+    transform: rotateY(45deg);
+}   
+div:last-child{
+    background-color: limegreen;
+    transform: translate(40%, -80%);
+    transform: skewY(10deg);
+   
+
+} */
+
+div:nth-child(3){
+    order: 0;
+}
+
+div:nth-child(2){
+    order: 1;
+}
+
+div:last-child:hover{
+    background-color: midnightblue;
+    border: 3px solid green;
+    transform: rotate(180deg);
+    /* transition-property: all;
+    transition-duration: 3s, 2s;
+    transition-delay: 0.5s; */
+    transition: all 2s ease 0.5s;
+    
+  
+}
+
+body{
+    overflow: hidden;
+}
+.animate {
+    animation: slide 5s ease 1s 2 normal forwards;
+    
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+      
+    }
+
+    33% {
+        transform: translateX(300px) rotate(180deg);
+    }
+
+    66% {
+        transform: translateX(-300px) rotate(-180deg);
+    }
+
+    100% {
+        transform: translateX(0) rotateZ(-90deg);
+        background-color: #475569;
+    }
+}

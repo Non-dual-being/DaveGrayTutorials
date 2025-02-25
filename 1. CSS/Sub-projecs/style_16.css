@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
+/* || RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.offscreen {
+  position: absolute;
+  left: -100rem;
+}
+
+/* || GENERAL STYLES */
+body {
+  font: 1.5rem "Nunito", sans-serif;
+  min-height: 100vh;
+  background-image: url('images/bubbles.png'), linear-gradient(to right,  rgba(0, 0, 0, 0.94), rgba(251, 210, 156));
+  background-repeat: repeat-y, no-repeat;
+  background-position: center center;
+  background-size: 10%, contain;
+ }
+
+.contentcontainer {
+  background-image: url('images/map-2176x1451.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+  
+.contentcontainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(0, 0%, 0%, 0.30); /* Semi-transparante zwarte overlay */
+  z-index: 1;
+}
+
+.hero {
+  border-bottom: 2px solid black;
+  padding: 20px;
+  display: flex;
+  justify-self: start;
+  align-items: center;
+  gap: 30px;
+
+}
+
+.h1 {
+  font-size: 5rem;
+  font-weight: 900;
+  color: whitesmoke;
+  background-image: url('images/bubbles.png');
+  background-size: 20%; /* grotere bubbels */
+  background-repeat: repeat-y;
+  background-position: center bottom;
+  background-attachment: fixed; /* zorgt voor vastzetten tijdens scrollen */
+  -webkit-background-clip: content-box;
+  text-shadow: 1px 1px 50px black;
+  background-size: 10%;
+}
+
+
+
+ .profile-pic-figure {
+  width: 35%;
+ }
+
+
+ .profile-pic-figure img {
+  width: 100%;
+  height: auto;
+  min-width: 100px;
+  border: 5px double gray;
+  border-radius: 50%;
+ }
+
+ img {
+  display: block; /*orginal inline*/
+ }
+
+
+ .example {
+  margin-top: 1rem;
+  padding-left: 20px;
+  border: 1px solid red;
+ }
+
+ .example img {
+  width: 25%;
+  height: auto;
+ }

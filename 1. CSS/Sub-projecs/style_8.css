@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+    padding: 5% 10%; /*vertical horizontal*/
+    font-size: 2rem;
+    font-family: "Roboto", sans-serif;
+}
+
+ol{
+    list-style-type:decimal;
+}
+
+ul{
+    list-style-type:square;
+    list-style-position: outside;
+    list-style: square url('./images/checkmark.png'); /*square as fallback*/ 
+}
+
+ul li:nth-child(2){
+    color: brown;
+} /*nth accepts even and odd also*/
+
+ol ::marker{
+    color:brown;
+    font-family: fantasy;
+    font-size: 1em;
+    content: "> ";
+}

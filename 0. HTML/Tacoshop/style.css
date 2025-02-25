@@ -1,0 +1,409 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;   
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+input, button, textarea {
+    font: inherit;
+}
+
+/* || VARIABLES */
+
+:root {
+    /* || FONTS || */
+
+    --FF: "Nunito", sans-serif;
+    --FF-HEADINGS: "Fugaz-One", cursive;
+    --FS: clamp(1rem, 2.2vh, 1.5rem); /*modern way of css*/
+    --FS-XL: clamp(2rem, 3vh, 3rem); /*modern way of css*/
+    --FS-S: clamp(1rem, 2.1vh, 1.3rem); /*modern way of css*/
+
+
+     /* || COLORS || */
+
+     --BGCOLOR: orange;
+     --BGCOLOR-FADE: rgb(252, 220, 160);
+     --BGIMAGE: linear-gradient(to bottom, var(--BGCOLOR), var(--BGCOLOR-FADE));
+     --BODY-BGCOLOR: #FFFF;
+     --FONT-COLOR: black;
+     --BORDER-COLOR: #333;
+     --HIGHLIGHT-COLOR: rgb(51, 178, 51);
+     --LINK-COLOR: #000;
+     --LINK-HOVER: hsla(0, 0%, 0%, 0.6);
+     --LINK-ACTIVE: orange;
+     --HEADER-BGCOLOR: black;
+     --HEADER-COLOR: #FFF;
+     --NAV-BGCOLOR: #FFF;
+     --HERO-BGCOLOR: rgba(51,178,51,0.75);
+     --HERO-COLOR:white;
+
+      /* || BORDERS || */
+
+      --BORDERS: 1px solid var(--BORDER-COLOR);
+      --BORDERS-RADIUS: 15px;
+
+      /* || STANDARD PADDING || */
+      --PADDING-TB: 0.25em;
+      --PADDING-SIDE: 2.5%;
+
+      /* || MARGIN STANDARD || */
+      --MARGIN: clamp(1em, 2.5vh, 1.5em) 0; /*TOP BOTTOM LEFT RIHGT*/
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+
+        --BGCOLOR-FADE: gray;
+        --BGCOLOR: #000;
+        --BODY-BGCOLOR: #333;
+        --BORDER-COLOR: whitesmoke;
+        --BUTTON-COLOR: #000;
+        --FONT-COLOR: whitesmoke;
+        --HEADER-COLOR: whitesmoke;
+        --HERO-COLOR: #333;
+        --HIGHLIGHT-COLOR: whitesmoke;
+        --LINK-ACTIVE: rgb(252, 200, 103);
+        --LINK-COLOR: whitesmoke;
+        --LINK-HOVER: orange;
+        --NAV-BGCOLOR: rgb(20, 20, 20);
+
+    }
+}
+/* || UTILITY CLASSES */
+
+.offscreen{
+    position: absolute;
+    left: -100000px;
+}
+
+.nowrap{
+    white-space: nowrap;
+}
+
+.center {
+    text-align: center;
+}
+
+
+/* || GENERAL STYLES || */
+
+html {
+    scroll-behavior: smooth;
+    font-size: var(--FS);
+    font-family: var(--FF);
+    background-color: var(--BGCOLOR);
+    background-image: var(--BGIMAGE);
+}
+
+body {
+    background-color: var(--BODY-BGCOLOR);
+    color: var(--FONT-COLOR);
+    min-height: 100vw;
+    max-height: fit-content;
+    max-width: 800px;
+    margin: 0 auto;
+    border-left: var(--BORDERS);
+    border-right: var(--BORDERS);
+    box-shadow: 0 0 10px var(--BORDER-COLOR);
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3{
+    font-family: var(--FF-HEADINGS);
+    letter-spacing: 0.1em;
+}
+
+h2, h3 {
+    margin-bottom: 1em;
+    color: var(--HIGHLIGHT-COLOR);
+}
+
+p {
+    line-height: 1.5;
+}
+
+a:any-link {
+    color: var(--LINK-COLOR)
+}
+
+a:is(:hover, :focus-visible){
+    color: var(--LINK-HOVER);
+}
+
+a:active {
+    color: var(--LINK-ACTIVE);
+    font-weight: bolder;
+}
+
+/* || HEADER || */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1; 
+}
+
+.header__h1 {
+    text-align: center;
+    background-color: var(--HEADER-BGCOLOR);
+    color: var(--HEADER-COLOR);
+    padding: var(--PADDING-TB) var(--PADDING-TB);
+}
+
+.header__nav {
+    background-color: var(--NAV-BGCOLOR);
+    border-bottom: var(--BORDERS);
+    font-weight: bold;
+    /* box-shadow: offset-x offset-y blur-radius spread-radius color; */
+    box-shadow: 0 6px 5px -5px  var(--BORDER-COLOR);
+}
+
+.header__ul {
+    padding: var(--PADDING-TB) var(--PADDING-SIDE);
+    list-style-type: none;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+/* || HERO || */
+
+.hero {
+    position: relative;
+}
+
+.hero__h2 {
+    background-color: var(--HERO-BGCOLOR);
+    color: var(--HERO-COLOR);
+    padding: 0.25em 0.5em; /*TOP DOWN LEFT RIHGT*/
+    letter-spacing: 0.1em;
+    font-style: italic;
+    /* box-shadow: offset-x offset-y blur-radius spread-radius color; */
+    text-shadow: 2px 2px 2px var(--BORDER-COLOR);
+   /* box-shadow: offset-x offset-y blur-radius spread-radius color; */
+    box-shadow: 1px 1px 1px var(--BORDER-COLOR);
+    border-radius: 4px;
+    position: absolute;
+    left: 20px;
+    top: -100px;
+    animation: showWelcome 0.5s linear forwards;
+    
+}
+
+/* || FOOTER || */
+
+.footer {
+    display: flex;
+    position: sticky;
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+    bottom: 0;
+    background-color: var(--HEADER-BGCOLOR);
+    color: var(--HEADER-COLOR);
+    padding: 1rem var(--PADDING-SIDE);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+
+}
+
+.main{
+    padding: var(--PADDING-TB) var(--PADDING-SIDE);
+    flex-grow: 1;
+}
+
+.main__article {
+    scroll-margin-top: 6.5rem;
+    margin: var(--MARGIN);
+
+}
+
+.main__article:first-child{
+    margin-bottom: 1em;
+}
+.main__article:first-child{
+    min-height: calc(100vh - 20rem);
+}
+
+.about__trivia {
+    margin: var(--MARGIN);
+}
+
+
+.about__trivia-answer {
+    margin-top: 1em;
+}
+
+
+/* || CONTACT || */
+
+.contact__h2 {
+    margin: 0;
+}
+
+.contact__fieldset {
+    border: none;
+}
+
+.contact__p {
+    margin: 1em 0;
+}
+
+.contact__label {
+    display: block;
+    font-weight: bold;
+}
+
+.contact__input,
+.contact__texterea {
+    padding: 0.5em;
+    border-radius: var(--BORDERS-RADIUS);
+    border-width: 2px;
+    width: 100%;
+}
+
+.contact__button{
+    padding: 0.5em;
+    border-radius: var(--BORDERS-RADIUS);
+    background-color: var(--HIGHLIGHT-COLOR);
+    color: var(--HEADER-COLOR);
+    cursor: pointer;
+    border: 4px solid var(--BORDER-COLOR);
+
+}
+
+
+/* || MENU || */
+
+/* 
+'display: contents;' verwijdert de visuele structuur van thead, tbody, tfoot, en tr, 
+waardoor alleen hun inhoud zichtbaar blijft en flexibel gepositioneerd kan worden. 
+Dit geeft controle over de cellen (th, td) zonder de standaard tabelstructuur.
+*/
+
+
+thead, tbody, tfoot, tr {
+    display: contents;
+}
+
+.menu__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: 
+        "hd1  hd2   hd3"       
+        "cr   cr1   cr1p"
+        "cr   cr2   cr2p"
+        "cr   cr3   cr3p"
+        "sf   sf1    sf1p"
+        "sf   sf2    sf2p"
+        "sf   sf3    sf3p"
+        "cs    cs    cs";
+    gap: 0.1em;
+    margin-bottom: 1em;
+}
+
+.menu__cr {
+    grid-area: cr;
+}
+
+.menu__sf {
+    grid-area: sf;
+    
+}
+
+.menu__cs {
+    grid-area: cs;
+    place-content: center;
+    border-bottom-left-radius: var(--BORDERS-RADIUS);
+    border-bottom-right-radius: var(--BORDERS-RADIUS);
+}
+
+.menu__cr, .menu__sf, .menu__cs, .menu__header {
+    color: var(--HIGHLIGHT-COLOR);
+    font-weight: bold;
+    height: 100%;
+    display:grid;
+    place-self: center;
+}
+
+.menu__header {
+    border-bottom: var(--BORDERS);
+}
+
+.menu__header, .menu__item {
+    width: 100%;
+    padding: 1em;
+    border: medium ridge var(--BORDER-COLOR);
+}
+
+.menu__item {
+    display: grid;
+    place-content: center;
+}
+
+thead th:first-child {
+    border-top-left-radius: var(--BORDERS-RADIUS);
+}
+thead th:last-child {
+    border-top-right-radius: var(--BORDERS-RADIUS);
+}
+
+
+@keyframes showWelcome {
+    0% {
+        top: -20px;
+        transform: scaleY(0.8) skewY(-11deg);
+        opacity: 0;
+    }
+    
+    50% {
+        top: 10px;
+        transform: scaleY(1.1) skewY(-12deg) ;
+        opacity: 0.5;
+    }
+
+    75% {
+        top: 30px;
+        transform: scaleY(1)  skewY(-13deg);
+        opacity: 0.8;
+    }
+
+    100% {
+        top: 50px;
+        transform: scaleY(1) skewY(-14deg);
+        opacity: 1;
+        font-size: var(--FS);
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .header__h1::before {
+        content: '🌮 '
+    }
+
+    .header__h1::after {
+        content: ' 🌮'
+    }
+
+    .menu_header,
+    .menu__cr,
+    .menu__cs {
+        font-size: 125%;
+    }
+
+}

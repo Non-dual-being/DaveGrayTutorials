@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+body {
+  font-size: 2rem;
+  font-family: "Roboto", sans-serif;
+}
+
+
+
+p{
+    background-color: bisque;
+}
+
+.opposite{
+    display: inline-block;
+    background-color: #333;
+    color: whitesmoke;
+    padding: 1rem;
+}
+
+ul {
+    list-style-image: url('./images/checkmark.png');
+    padding-left: 0;
+    text-align: left;
+    list-style-position: inside;
+    padding: 0.5rem;
+}
+
+li {
+    display: inline-flexbox;
+    flex-direction: column;
+    background-color: papayawhip;
+    line-height: 3rem;
+}
+
+li a{
+    color: black;
+    text-decoration: white;
+}
+
+li a:hover, li a:focus{
+    font-size: 1.1em;
+    
+}

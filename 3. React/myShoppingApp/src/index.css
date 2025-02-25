@@ -1,0 +1,283 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgb(36, 36, 36);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* 🎨 Kleurenpalet */
+  --color-bg-main: #242424; /* Donkere achtergrond */
+  --color-bg-main-app: #e1e1e1; /* Lichtgrijs (voor app container) */
+  --color-bg-secondary: #ffffff; /* Witte elementen */
+  --color-text-main: #333333; /* Donkere tekst */
+  --color-text-secondary: #555555; /* Neutrale grijstint */
+  --color-primary: #ff6f61; /* Rood-oranje accent (voor knoppen/highlights) */
+  --color-primary-dark: #e65b50; /* Donkerdere variant voor hover */
+  --color-secondary: #4a90e2; /* Blauw accent (bijv. links of highlights) */
+  --color-border: #dddddd; /* Subtiele randen */
+  --color-shadow: rgba(0, 0, 0, 0.1); /* Zachte schaduw */
+
+  /* 🛍️ Specifieke stijlen */
+  --boxShadow__main: 0px 2px 10px var(--color-shadow);
+}
+
+*, *::after, *::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: auto;
+  overflow-x: hidden;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 100%;
+  align-items: center;
+  justify-content: start;
+  min-height: 100vh;
+  height: auto;
+  width: 100%;
+  background-color: var(--color-bg-main);
+}
+
+.myShoppingApp {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  color: var(--color-primary);
+  background-color: var(--color-bg-main-app);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--boxShadow__main);
+  border-radius: 8px;
+}
+
+.myHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+  height: auto;
+  color: var(--color-primary);
+  background-color: var(--color-bg-main);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.emptyShoppingList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  padding: 1rem;
+  margin: 2rem 0;
+  background-color: rgba(255, 111, 97, 0.1);
+  color: var(--color-primary-dark);
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: var(--boxShadow__main);
+}
+
+.myMain{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 90%;
+  height: auto;
+  padding: 1rem;
+  box-shadow: var(--boxShadow__main);
+  border-radius: 16px;
+}
+
+button {
+  height: 48px;
+  min-width: 48px;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: var(--color-primary);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+button:hover, button:focus {
+  background-color: var(--color-primary-dark);
+  outline: none;
+}
+
+.counter {
+  background-color: brown;
+  border-radius: 20px;
+  border: 3px solid var(--color-bg-secondary);
+  color: whitesmoke;
+  padding: 0.8rem;
+  transition: background-color 0.3s ease;
+}
+
+.counter:hover {
+  background-color: #22333b;
+  box-shadow: inset 0px 0px 1px 2px red;
+
+}
+
+
+ul {
+  width: 100%;
+  list-style: none;
+  padding: 0 0.25rem 0.25rem;
+}
+
+ul li::before {
+  content: "\200B";
+}
+
+.item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  margin: 0.25rem 0;
+  background-color: var(--color-bg-secondary);
+  border-radius: 6px;
+}
+
+.item:first-child {
+  margin: 0;
+}
+
+.item input[type="checkbox"] {
+  text-align: center;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.item input[type="checkbox"]:focus + label {
+  text-decoration: underline;
+}
+
+.item > label {
+  font-size: 0.75rem;
+  flex-grow: 1;
+}
+
+.item svg {
+  width: 48px;
+  height: 36px;
+  font-size: 1rem;
+  color: steelblue;
+  cursor: pointer;
+}
+
+.item svg:focus, 
+.item svg:hover {
+  color: red;
+  outline: none;
+}
+
+.item svg:active {
+  transform: scale(1.1);
+}
+
+.addForm, .searchForm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.5rem 0 0 0;
+  padding: 0 0.5rem 0.25rem;
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+}
+
+.searchForm {
+  padding: 0.5rem;
+  margin: 0;
+}
+
+.addForm label, .searchForm label {
+  position: absolute;
+  left: -100000px;
+}
+
+.addForm input[type='text'], .searchForm input[type='text'] {
+  flex-grow: 1;
+  max-width: 100%;
+  min-height: 48px;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  outline: none;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.addForm input[type='text']:hover, 
+.searchForm input[type='text']:hover {
+  border: 2px solid var(--color-secondary);
+  background-color: var(--color-bg-secondary);
+  box-shadow: none;
+  color:var(--color-text-main);
+
+}
+
+.searchForm {
+  background-color: var(--color-bg-main-app);
+  border-radius: 1rem;
+}
+
+.fetchError {
+  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  border: 2px solid red;
+  background-color: lightgray;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+header{
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+footer{
+  display: grid;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 	100%;
+  background-color: var(--color-bg-main);
+  color: var(--color-primary-dark);
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  grid-template-rows: 1fr;
+  grid-template-columns: auto auto;
+  padding: 0.5rem 0;
+
+
+}

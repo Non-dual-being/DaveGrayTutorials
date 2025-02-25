@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /*inc. padding, border en context*/
+}
+
+body{
+    margin: 1rem;
+}
+
+.container {
+    border: 2px outset brown;
+    border-top: 3px solid brown;
+    border-right: ridge brown;
+    border-left-width: 1px brown;
+
+    font-size: 1.5rem;
+    padding: 1em 0.5em 1em 0.5em;
+    margin: 1em;
+    outline: 5px solid #83c5be;  /*outline is not accounted for in box-model*/
+    outline-offset: 5px; 
+}
+
+.circle{
+    background-color: #006d77;
+    width: 10rem;
+    height: 10rem;
+    border: 3px solid #e29578;
+    outline: 5px solid #83c5be;  /*outline is not accounted for in box-model*/
+    outline-offset: 1px; 
+    margin: 2rem auto;
+    border-radius: 5rem;
+
+}
+
+/*top right bottom left*/

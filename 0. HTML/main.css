@@ -1,0 +1,37 @@
+html {
+    font-size: 22px;
+}
+body{  
+    background-color: #333;
+    color: whitesmoke;
+}
+
+a {
+    color: red;
+    text-decoration: none; /* Verwijdert de standaard onderstreping */
+    font-weight: bold;
+    transition: color 1s ease; /* Soepele overgang bij hover */
+    font-size: 0.8em;
+}
+
+a:hover {
+    color: white; /* Verandert kleur naar een oranje-rode tint bij hover */
+    text-decoration: underline; /* Onderstreping bij hover */
+}
+
+a:active{
+ 
+     box-shadow: 0px 2px 0px 0px rgba(33, 0, 0, 0.6);
+}
+
+
+table, tr, th, td, caption {
+    border: 1px solid white;
+    font-family: 'Courier New', Courier, monospace;
+    border-collapse: collapse;
+    padding: 0.5rem;
+}
+
+table{
+    margin-bottom: 20px;
+}

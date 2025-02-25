@@ -1,0 +1,219 @@
+
+:root {
+  /*--[default values]---*/
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #242424;
+  color: #3333;
+
+  /*---------[custom values]----------*/
+  /*color*/
+  --BG__Default:  #242424;
+  --BG__main: lightgray;
+
+  --F__Error: #DC493A;
+
+}
+
+*, *::after, *::before{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ /*
+
+ ![de html en de body hier niet op een flex zettem]
+ todo: het standaard blok gedraag is hier juist
+ *zodoende ervaart de root geen onnodig extra logica van html en body als flex-container
+ *de root is dus nu wel flex-container, maar geen flex-item
+ 
+ */
+
+html, body {
+ 
+  width: 100%;
+  height: auto;
+  overflow-x: hidden;
+
+
+}
+
+#root{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 1;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  background-color: var(--BG__main);
+}
+
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+  width: 100%;
+  max-width: 800px;
+}
+
+.myHeader{
+  width: 100%;
+  height: auto;
+  padding: 1rem 0;
+}
+
+/*
+  *flex grow 1 flex schrink 1 100% basis
+  ? dus dat wil zeggen begin op 100 procent, maar schrink geijkmatig met de andere items
+
+*/
+
+.myNav {
+  width: 100%;
+  background-color: var(--BG__Default);
+  color: #eded;
+}
+
+.headerUL {
+  display: flex;
+  min-width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+.headerLink {
+  display: flex;
+  flex: 1 1 100%; 
+  padding: 1rem 0;
+  font-weight: normal;
+  cursor: pointer;
+  justify-content: center;
+  transition: background-color 0.3 ease-in-out;
+
+}
+
+.headerLink.active{
+  font-weight: bold;
+  background-color: rgb(255, 255, 255, 0.2);
+  text-decoration: underline;
+}
+
+.headerLink:hover{
+  box-shadow: inset 0px 0px 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.headerLink:active {
+  background-color: rgb(255, 255, 255, 0.7);
+}
+
+.outLiCompleteListItem:hover {
+  background-color:rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
+}
+
+li:hover{
+  background-color: #b89c71;
+  color: #222;
+  transition: background-color 0.3s ease-in-out;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 90%;
+}
+
+
+.ErrorPara {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #333;
+  color: var(--F__Error);
+  font-weight: 900;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.isLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  background-color: papayawhip;
+  padding: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: var(--font-sizeLarge-responsive);
+}
+
+
+.JSONList {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto; /* Zorgt ervoor dat de rijen worden aangepast aan de grootste inhoud */
+  align-items: stretch; /* Dit zorgt ervoor dat alle items even hoog worden */
+  padding: 1rem;
+
+}
+
+.innerUl {
+  display: flex;
+  padding-left: 0.5rem;
+  list-style: disc;
+  flex-direction: column;
+  justify-items: flex-start;
+  align-items: flex-start;
+  row-gap: 5px;
+  list-style-position: inside;
+
+}
+
+.oddInnerUl {
+  background-color: papayawhip;
+  color: #333;
+  padding: 0.2rem;
+  border-radius: 5px;
+  border: 2px solid #333;
+}
+
+.evenInnerUl {
+  background-color: #333;
+  color: white;
+  padding: 0.2rem;
+  border-radius: 5px;
+}
+
+
+.outLiCompleteListItem {
+  background-color: papayawhip;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 0.5rem;
+
+}
+.outLiCompleteListItem:hover {
+  background-color: papayawhip;
+  box-shadow: inset 1px 1px 5px #333;
+
+}
+
+
+
+

@@ -6,9 +6,11 @@ import Footer from './Footer.jsx';
 import Home from './Home.jsx';
 import PostPage from './PostPage.jsx';
 import NewPost from './NewPost.jsx';
+import EditPost from './EditPost.jsx';
 import About from './About.jsx';
 import Missing from './Missing.jsx';
 import api from './api/posts.js';
+
 //import { format } from 'date-fns';
 
 function App() {
@@ -17,6 +19,9 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [postBody, setPostBody] = useState('');
   const [postTitle, setPostTitle] = useState('');
+  const [editBody, setEditBody] = useState('');
+  const [editTitle, setEditTitle] = useState('');
+
   const navigate = useNavigate();
 
 
@@ -127,6 +132,37 @@ function App() {
 
     }
 
+    const handleEdit = async (id) => {
+      if (!id) return;
+      if (typeof id !== 'string') id = String(id).trim();
+
+      const newDateTime = getFormattedDateTime();
+      const updatedPost = { id, title: editTitle, newDateTime, body: editBody}
+
+      try {
+        const response = await api.put(`/posts/${id}`, updatedPost);
+        setPosts(posts.map((post)=>(
+          post.id === updatedPost.id ? {...response.data} : post
+        )))
+        setEditBody('');
+        setEditTitle('');
+        navigate('/');
+
+        /** spread operator gebruiken om de referentie naar het api object te verandern, 
+         * zo snapt react dat een herender van de component nodig is, 
+         * zonder de spread zou react kunnen interpreteren als het zelfde object 
+         * ?hoewel de arrat altijd met map een nieuwe obecjts is in de inviduele wijziging als nieuwe referentie toch belangrijk*/
+
+      } catch (error) {
+        console.log(`err: ${error.message}`);
+
+      }
+
+
+
+
+    }
+
 
   
 
@@ -147,6 +183,21 @@ function App() {
             />} 
         />
         <Route path="/post/:id" element={<PostPage posts={posts} handeDelete={handleDelete}/>} />
+        <Route
+          path= "/edit/:id"
+          element = {
+            <EditPost
+              posts = {posts}
+              handleEdit={handleEdit}
+              editTitle={editTitle}
+              setEditTitle={setEditTitle}
+              editBody = {editBody}
+              setEditBody={setEditBody}
+            />
+          }
+        
+        
+        />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<Missing />} />
       </Routes>

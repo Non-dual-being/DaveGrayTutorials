@@ -13,6 +13,9 @@ const PostPage = ({ posts, handeDelete }) => {
             <h2>{post.title}</h2>
             <p className='postDate'>{post.datetime}</p>
             <p className='postBody'>{post.body}</p>
+            <NavLink 
+              className="editNavLink"
+              to={`/edit/${id}`}>Edit Post</NavLink>
             <button 
               onClick={(e) => handeDelete(post.id)}
             >Smetterling</button>

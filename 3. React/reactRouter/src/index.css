@@ -217,6 +217,7 @@ body {
   padding: 0.5rem;
   font-size: 1rem;
   cursor: pointer;
+  transition: background-color 1s ease-in-out, color 1s ease-in-out;
 }
 
 .Missing h2, .PostPage h2, 
@@ -226,13 +227,16 @@ body {
 
 .PostPage button {
   height: 48px;
-  min-width: 48px;
+  width: auto;
   border-radius: 0.25rem;
   padding: 0.5rem;
   font-size: 1rem;
-  background-color: red;
+  background-color: none;
   color: #fff;
   cursor: pointer;
+  font-weight: 900;
+  margin-right: 0.3rem;
+  text-align: center;
 }
 
 .statusMsg {
@@ -255,7 +259,7 @@ body {
   padding: 0.5rem 0; /* Ruimte boven en onder de tekst */
   width: 100%; /* Link pakt de volledige breedte */
   color: #333; /* Standaard tekstkleur */
-  transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+  transition: color 0.7s ease-in-out, text-decoration 0.7s ease-in-out;
 }
 
 .editNavLink:hover {
@@ -263,20 +267,22 @@ body {
   text-decoration: underline; /* Geeft een subtiele hover-indicatie */
 }
 
-.editPostButton{
+.editButton{
   background-color: #333;
-  color: white;
-  box-shadow: inset 0px 0px 3px #0077cc;
-  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
-
 }
 
-.editPostButton:hover{
-  background-color: #0077cc;
+.deleteButton{
+  background-color: red;
+}
+
+.editButton:hover, .deleteButton:hover {
+  background-color: #efefef;
   color: #333;
-  box-shadow: none;
-
+  border: 3px solid #333;
+  font-weight: 900;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
+
 
 
 @media only screen and (min-width: 610px) {

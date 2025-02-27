@@ -10,6 +10,7 @@ import EditPost from './EditPost.jsx';
 import About from './About.jsx';
 import Missing from './Missing.jsx';
 import api from './api/posts.js';
+import useWindowSize from './hooks/useWindowSize.js';
 
 //import { format } from 'date-fns';
 
@@ -21,6 +22,7 @@ function App() {
   const [postTitle, setPostTitle] = useState('');
   const [editBody, setEditBody] = useState('');
   const [editTitle, setEditTitle] = useState('');
+  const { width } = useWindowSize(); //destructuring is name based and doesnt mean making a object of it just gets the value out of the key
 
   const navigate = useNavigate();
 
@@ -168,7 +170,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Header title = "React JS Blog"/>
+      <Header title = "React JS Blog" width = {width}/>
       <Nav search={search} setSearch={setSearch}/>
       <Routes>
         <Route path="/" element={<Home posts={search.length ? searchResults : posts}/>} />

@@ -1,8 +1,11 @@
 import { useEffect } from "react"
 import { useParams, NavLink } from 'react-router-dom'
+import { useContext } from 'react'
+import DataContext from './context/DataContext.jsx'
 
-const EditPost = ({ 
-    posts, handleEdit, editBody, setEditBody, editTitle, setEditTitle }) => {
+
+const EditPost = () => {
+        const { posts, handleEdit, editBody, setEditBody, editTitle, setEditTitle } = useContext(DataContext);
     const { id } = useParams(); /**deconstrueert uit de url de id (/posts/:id) */
     const post = posts.find(post => post.id.toString() === id)
     //post is in de dependcie is gwn een constate, hoef niet state te zijn

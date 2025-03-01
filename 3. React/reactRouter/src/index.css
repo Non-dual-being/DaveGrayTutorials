@@ -283,6 +283,28 @@ body {
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
+.statusMsg {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-size: clamp(5vw, 2rem, 7vw);
+  font-weight: 900;
+  border: 3px solid #333;
+  border-radius: 1rem;
+ 
+}
+
+.statusMsg.error{
+  color: red;
+  background-color: #333;
+}
+
+.statusMsg.loading{
+  color: white;
+  background-color: #333;
+}
 
 
 @media only screen and (min-width: 610px) {

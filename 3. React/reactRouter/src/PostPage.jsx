@@ -5,7 +5,7 @@ import DataContext from './context/DataContext.jsx'
 
 
 const PostPage = () => {
-  const { posts, handeDelete } = useContext(DataContext);
+  const { posts, handleDelete } = useContext(DataContext);
   const { id } = useParams(); /**deconstrueert uit de url de id (/posts/:id) */
   const post = posts.find(post => post.id.toString() === id)
   
@@ -26,7 +26,7 @@ const PostPage = () => {
             </NavLink>
             <button 
               className='deleteButton'
-              onClick={(e) => handeDelete(post.id)}
+              onClick={(e) => handleDelete(post.id)}
             >Smetterling</button>
           
           </>

@@ -5,7 +5,7 @@ import DataContext from './context/DataContext.jsx'
 
 
 const EditPost = () => {
-        const { posts, handleEdit, editBody, setEditBody, editTitle, setEditTitle } = useContext(DataContext);
+    const { posts, handleEdit, editBody, setEditBody, editTitle, setEditTitle } = useContext(DataContext);
     const { id } = useParams(); /**deconstrueert uit de url de id (/posts/:id) */
     const post = posts.find(post => post.id.toString() === id)
     //post is in de dependcie is gwn een constate, hoef niet state te zijn

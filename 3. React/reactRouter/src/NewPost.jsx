@@ -1,10 +1,42 @@
 import React from 'react'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import DataContext from './context/DataContext.jsx'
 
+
 const NewPost = () => {
-  const { handleSubmit, postTitle, setPostTitle, postBody, setPostBody } = useContext(DataContext);
-  
+  const [postBody, setPostBody] = useState('');
+  const [postTitle, setPostTitle] = useState('');
+  const { posts, setPosts, getFormattedDateTime, api, navigate } = useContext(DataContext);
+
+  const handleSubmit  = async (e) => {
+  e.preventDefault();
+  if ((!postBody || postBody.trim() === '') || (!postTitle || postTitle.trim() === '')) return;
+
+      const newID = posts.length ? Math.max(...posts.map(post => post.id)) + 1 : 1;
+      const newDateTime = getFormattedDateTime();
+
+      /**alternatief */
+      //let datetime = format(new Date(), 'MMMM dd, yyyy pp')
+
+      const myNewPost = {
+      id: String(newID).trim(),
+      title: postTitle,
+      datetime: newDateTime,
+      body: postBody
+      }
+
+      try {
+      const response = await api.post('/posts', myNewPost);
+      setPosts((prevposts) => [...prevposts, response.data]);
+      setPostTitle('');
+      setPostBody('');
+      navigate('/');
+
+      } catch(e){
+      console.log(`err : ${e.message}`);
+      }
+  }
+
   return (
     <main className='NewPost'>
       <h2>New Post</h2>

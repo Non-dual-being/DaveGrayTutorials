@@ -5,9 +5,30 @@ import DataContext from './context/DataContext.jsx'
 
 
 const PostPage = () => {
-  const { posts, handleDelete } = useContext(DataContext);
+  const { posts, setPosts, navigate, api} = useContext(DataContext);
   const { id } = useParams(); /**deconstrueert uit de url de id (/posts/:id) */
   const post = posts.find(post => post.id.toString() === id)
+
+  const handleDelete = async (id) => {
+  if (id === null) return;
+  if (typeof id !== 'string') id = String(id).trim();
+      try{
+      await api.delete(`/posts/${id}`);
+      setPosts((prevPosts) => 
+      prevPosts.filter(post => post.id !== id)
+      )
+      navigate('/');
+
+  } catch(e) {
+      if (e.response) {
+      console.log(`data: ${e.response.data}, status: ${e.response.data}`);
+      } else {
+      console.log(`err: ${e.message}`);
+      }
+  }
+
+  }
+  
   
 
   return (

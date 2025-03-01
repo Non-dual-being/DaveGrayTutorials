@@ -17,9 +17,9 @@ import Missing from './Missing.jsx';
 function App() {
   return (
     <div className='App'>
-      <DataProvider>
         <Header title = "React JS Blog"/>
         <Nav/>
+        <DataProvider>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/post" element={<NewPost/>}/>
@@ -28,9 +28,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="*" element={<Missing />} />
         </Routes>
+        </DataProvider>
         <Footer />
-      </DataProvider>
-    </div>
+     </div>
   );
 }
 

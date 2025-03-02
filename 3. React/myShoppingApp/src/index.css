@@ -281,3 +281,23 @@ footer{
 
 
 }
+
+
+@media screen and (max-width: 768px) {
+  .myShoppingApp {
+      border: none;
+
+  }
+
+  .myHeaderH1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    
+  }
+
+
+  
+}
+

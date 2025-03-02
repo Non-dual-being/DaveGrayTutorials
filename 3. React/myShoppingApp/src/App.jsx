@@ -46,12 +46,22 @@ const App = () => {
     })
   }
   
-  const handleDelete = (id) => {
-    const listItems = items.filter(item => item.id !== id)
+  const handleDelete = async (id) => {
+    const listItems = items.filter(item => item.id !== id);
     setItems(listItems);
-    localStorage.setItem('shoppinglist', JSON.stringify(listItems));
+    localStorage.setItem('shoppinglist', JSON.stringify(listItems)); // ✅ Update LocalStorage
   
-  }
+    /** Probeer het ook op de server te verwijderen */
+    try {
+      const deleteOptions = {
+        method: "DELETE"
+      };
+      await apiRequest(`${API_URL}/${id}`, deleteOptions);
+    } catch (e) {
+      console.warn("Failed to delete from server, but removed from LocalStorage:", e.message);
+    }
+  };
+  
 
   //async becauze of the fetch api
 
@@ -89,7 +99,7 @@ const App = () => {
     const result = await apiRequest(API_URL, postOptions);
 
     //there wil be a result if a error message showed up in the catch block
-    if (result) {setFetchError(result)};
+    //if (result) {setFetchError(result)}; om de local te laten werken
   }
 
   useEffect(() => {
@@ -101,8 +111,14 @@ const App = () => {
         console.log(listItems);
         setItems(listItems);
         setFetchError(null);
+        localStorage.setItem('shoppinglist', JSON.stringify(listItems)); // ✅ Save to LocalStorage
       } catch (e) {
-        setFetchError(e.message);
+        const storedItems = localStorage.getItem('shoppinglist');
+        if (storedItems) {
+          setItems(JSON.parse(storedItems));
+        } else {
+          setItems([]); // Geen data, zet een lege lijst
+      }
 
       } finally {
         setIsloading(false);

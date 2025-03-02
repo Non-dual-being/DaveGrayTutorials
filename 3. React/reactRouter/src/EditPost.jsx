@@ -1,31 +1,35 @@
-import { useState, useEffect } from "react"
-import { useParams, NavLink } from 'react-router-dom'
-import { useContext } from 'react'
-import DataContext from './context/DataContext.jsx'
+import {  useEffect } from "react"
+import { useParams, NavLink, useNavigate } from 'react-router-dom'
+import { useStoreActions, useStoreState } from 'easy-peasy';
 
 
 const EditPost = () => {
-    const [editBody, setEditBody] = useState('');
-    const [editTitle, setEditTitle] = useState('');
-    const { posts, setPosts, navigate, getFormattedDateTime, api} = useContext(DataContext);
+
+    const editTitle = useStoreState((state) => state.editTitle);
+    const setEditTitle = useStoreActions((actions) => actions.setEditTitle);
+    const editBody = useStoreState((state) => state.editBody);
+    const setEditBody = useStoreActions((actions) => actions.setEditBody);
+    const getPostById = useStoreState((state) => state.getPostById);
+    const editPost = useStoreActions((actions) => actions.editPost)
     const { id } = useParams(); /**deconstrueert uit de url de id (/posts/:id) */
-    const post = posts.find(post => post.id.toString() === id)
+    const post = getPostById(id);
+    const navigate = useNavigate();
+
+    
     //post is in de dependcie is gwn een constate, hoef niet state te zijn
 
-    const handleEdit = async (id) => {
+    const handleEdit =  (id) => {
         if (!id) return;
         if (typeof id !== 'string') id = String(id).trim();
 
-        const newDateTime = getFormattedDateTime();
-        const updatedPost = { id, title: editTitle, newDateTime, body: editBody}
-
         try {
-        const response = await api.put(`/posts/${id}`, updatedPost);
-        setPosts(posts.map((post)=>(
-            post.id === updatedPost.id ? {...response.data} : post
-        )))
-        setEditBody('');
-        setEditTitle('');
+        const myPostEdit = {
+            id: id,
+            title: editTitle,
+            body: editBody
+        }
+
+        editPost(myPostEdit);
         navigate('/');
 
         /** spread operator gebruiken om de referentie naar het api object te verandern, 
@@ -41,10 +45,10 @@ const EditPost = () => {
 
    useEffect(() => {
     if (post) {
-        setEditTitle(post.title);
+        setEditTitle (post.title);
         setEditBody(post.body);
     }
-   }, [post]) 
+   }, [post, setEditTitle, setEditBody]) 
 
     return(
         <main className="NewPost">

@@ -1,32 +1,27 @@
-import React from 'react'
-import { useParams, NavLink } from 'react-router-dom'
-import { useContext } from 'react'
-import DataContext from './context/DataContext.jsx'
-
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import { useStoreActions, useStoreState } from 'easy-peasy';
 
 const PostPage = () => {
-  const { posts, setPosts, navigate, api} = useContext(DataContext);
-  const { id } = useParams(); /**deconstrueert uit de url de id (/posts/:id) */
-  const post = posts.find(post => post.id.toString() === id)
+  const deletePost = useStoreActions((actions) => actions.deletePost)
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const  getPostById = useStoreState((state) => state. getPostById);
+  const post = getPostById(id);
 
-  const handleDelete = async (id) => {
-  if (id === null) return;
-  if (typeof id !== 'string') id = String(id).trim();
+
+  const handleDelete = (id) => {
+      if (id === null) return;
       try{
-      await api.delete(`/posts/${id}`);
-      setPosts((prevPosts) => 
-      prevPosts.filter(post => post.id !== id)
-      )
-      navigate('/');
+          deletePost(id);
+          navigate('/');
 
-  } catch(e) {
-      if (e.response) {
-      console.log(`data: ${e.response.data}, status: ${e.response.data}`);
-      } else {
-      console.log(`err: ${e.message}`);
+      } catch(e) {
+          if (e.response) {
+          console.log(`data: ${e.response.data}, status: ${e.response.data}`);
+          } else {
+          console.log(`err: ${e.message}`);
+          }
       }
-  }
-
   }
   
   

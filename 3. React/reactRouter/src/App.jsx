@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { DataProvider } from './context/DataContext.jsx';
-
+import  useAxiosFetch  from './hooks/useAxiosFetch.js';
+import  { useStoreActions } from 'easy-peasy';
 
 import Header from './Header.jsx';
 import Nav from './Nav.jsx';
@@ -12,23 +13,28 @@ import EditPost from './EditPost.jsx';
 import About from './About.jsx';
 import Missing from './Missing.jsx';
 
-//import { format } from 'date-fns';
+
 
 function App() {
+  const url = 'http://localhost:3500/posts'
+  const setPosts = useStoreActions((actions) => actions.setPosts);
+  const { data, isLoading, fetchError } = useAxiosFetch(url)
+  useEffect(() => {setPosts(data)}, [data, setPosts]);
+
   return (
     <div className='App'>
         <Header title = "React JS Blog"/>
         <Nav/>
-        <DataProvider>
+        
         <Routes>
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Home isLoading = {isLoading} fetchError = {fetchError}/>} />
           <Route path="/post" element={<NewPost/>}/>
           <Route path="/post/:id" element={<PostPage />} />
           <Route path= "/edit/:id" element = {<EditPost/>}/>
           <Route path="/about" element={<About />} />
           <Route path="*" element={<Missing />} />
         </Routes>
-        </DataProvider>
+       
         <Footer />
      </div>
   );

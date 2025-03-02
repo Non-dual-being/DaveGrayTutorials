@@ -1,11 +1,30 @@
-import React, { useCallback } from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { useContext } from 'react'
-import DataContext from './context/DataContext.jsx'
+import { useStoreState, useStoreActions } from 'easy-peasy'
 
 
 const Nav = () => {
-  const { search, setSearch } = useContext(DataContext)
+  const posts = useStoreState((state) => state.posts);
+  const search = useStoreState((state) => state.search);
+  const setSearch = useStoreActions((actions) => actions.setSearch);
+  const setSearchResults = useStoreActions((actions) => actions.setSearchResults);
+
+
+  useEffect(() => {
+    const filteredResults = search && search.length 
+    ? (posts.filter((post) => (
+      ((post.body).toLowerCase().includes(search.toLowerCase())) || ((post.title.toLowerCase().includes(search.toLowerCase())))  
+    )).sort((a, b) => new Date(b.datetime) - new Date (a.datetime))) 
+    : (posts)
+    /**sortering op datum sort kijk is b groter dan a (eerdere datum groter getal) dan b eerst */
+
+    setSearchResults(filteredResults);
+
+  }, [posts, search, setSearchResults])
+  
+
+
+
 
   return (
     <nav className='Nav'>

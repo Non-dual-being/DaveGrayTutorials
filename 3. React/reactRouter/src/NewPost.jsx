@@ -1,35 +1,29 @@
-import React from 'react'
-import { useContext, useState } from 'react'
-import DataContext from './context/DataContext.jsx'
+import { useNavigate } from 'react-router-dom'
+import { useStoreActions, useStoreState } from 'easy-peasy';
 
 
 const NewPost = () => {
-  const [postBody, setPostBody] = useState('');
-  const [postTitle, setPostTitle] = useState('');
-  const { posts, setPosts, getFormattedDateTime, api, navigate } = useContext(DataContext);
+  const setPostBody = useStoreActions((actions) => actions.setPostBody)
+  const postBody = useStoreState((state) => state.postBody)
+  const setPostTitle = useStoreActions((actions) => actions.setPostTitle)
+  const postTitle = useStoreState((state) => state.postTitle)
+  const navigate = useNavigate();
+  const savePost = useStoreActions((actions) => actions.savePost)
+  const getNewId = useStoreState((state) => state.getNewId);
+  const newID = getNewId();
 
-  const handleSubmit  = async (e) => {
+  const handleSubmit  = (e) => {
   e.preventDefault();
   if ((!postBody || postBody.trim() === '') || (!postTitle || postTitle.trim() === '')) return;
-
-      const newID = posts.length ? Math.max(...posts.map(post => post.id)) + 1 : 1;
-      const newDateTime = getFormattedDateTime();
-
-      /**alternatief */
-      //let datetime = format(new Date(), 'MMMM dd, yyyy pp')
 
       const myNewPost = {
       id: String(newID).trim(),
       title: postTitle,
-      datetime: newDateTime,
       body: postBody
       }
 
       try {
-      const response = await api.post('/posts', myNewPost);
-      setPosts((prevposts) => [...prevposts, response.data]);
-      setPostTitle('');
-      setPostBody('');
+      savePost(myNewPost);
       navigate('/');
 
       } catch(e){

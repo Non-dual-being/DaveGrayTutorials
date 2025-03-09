@@ -1,3 +1,24 @@
 body {
-    background-color: black;
+    background-color: #333;
+    display: grid;
+    place-content: center;
+    font-size: clamp(2vw, 3rem, 3vw);
+    color: #ede;
+    flex-grow: 1;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    padding: 1rem;
+    background-color: papayawhip;
+    color: #333;
+    width: 100%;
+}
+
+footer span {
+    display: inline-block;
 }

@@ -1,10 +1,13 @@
-import { Children, createContext, ReactElement, useState } from "react"
+import { Children, createContext, ReactElement, useState, useEffect } from "react"
 
 export type ProductType = {
     sku: string,
     name: string,
     price: number
 }
+
+const initState2: ProductType[] = [];
+
 
 const initState: ProductType[] = [
     {
@@ -53,7 +56,56 @@ const ProductsContext = createContext<UseProductsContextType>(initContextState)
 type ChildrenType = { children?: ReactElement | ReactElement[]}
 
 export const ProductsProvider = ({ children }: ChildrenType): ReactElement => {
-    const [products, setProducts] = useState<ProductType[]>(initState)
+    const [products, setProducts] = useState<ProductType[]>([]) // lege array zodat het niet undefined blijft
+
+    const fetchMyProducts = async (): Promise<ProductType[]> => 
+        {
+            let response: Response
+            try {
+                response = await fetch("http://localhost:3500/products") 
+            } catch (networkError){
+                console.error(`NetworkError: ${networkError}`);
+                throw new Error('Fout in het ophalen')
+            }
+            
+            if (!response.ok){
+                console.error(`HTTP-Fout: status: ${response.status} fouttext: ${response.text}`);
+                throw new Error('HTTPFOUT')  
+            }
+
+            try {
+                const data = await response.json()
+                return data
+
+            } catch (err) {
+                console.error(`Fout in het parsen naar json: ${err}`)
+                throw new Error("Ongeldig JSON-formaat in serverantwoord.")
+                /**
+                 * Bij een trow Error laat je de foutafhandeling bij de degene die de functie aanroept
+                 * Tergelijktijd door een fout te gooien ga je over naar een never return
+                 * Never betekent ik ga nooit iets terugeven
+                 * Dit breekt niet met: "als ik iets teruggeef dan is het van het type products[]"
+                 */
+
+            }
+        
+       
+    }
+    
+    useEffect(() => {
+        fetchMyProducts()
+            .then(products => setProducts(products))
+            .catch((err) => {
+                if (err instanceof Error) {console.error(err.message)}
+                else {console.error("fout in het ophalen van de data")}
+            })                
+    }, [])
+        
+
+
+
+
+
 
     return (
         <ProductsContext.Provider value={{products}}>
@@ -83,4 +135,9 @@ export default ProductsContext
 
 /**
  * je value { products } werkt omdat je hiermee shorthanded dus products : products schrijft en dus voldoet aan products : productstype [4]
+ */
+
+/**
+ * Initstate wordt hier opgehaald van lexical scope, dus van buiten de fucntie in dezelfde file
+ * Dit wil zeggen dat inistate 1 keer wordt aangeroepen en bij herrenders gebruik react zijn internal state om dezelfde waarde opte halen zonder herinitstalisatie
  */

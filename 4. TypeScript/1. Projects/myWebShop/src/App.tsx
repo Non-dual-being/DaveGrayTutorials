@@ -1,9 +1,12 @@
+import ProductsContext, { ProductsProvider } from "./context/ProductsProvider"
 
 
 function App() {
-
   return (
-    <div></div>
+    <ProductsProvider>
+      <div></div>
+    </ProductsProvider>
+   
   )
    
 }

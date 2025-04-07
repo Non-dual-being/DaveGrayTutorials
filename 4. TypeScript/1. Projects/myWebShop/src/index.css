@@ -106,6 +106,8 @@ img {
     grid-template-columns: 4fr 3fr 1fr 1fr;
     gap: 0.5rem;
     margin-bottom: 0.5em;
+
+
 }
 
 .cart__img {
@@ -115,6 +117,7 @@ img {
 
 .cart__select {
     max-height: 48px;
+    width:  48px;
 }
 
 .cart__item-subtotal {
@@ -139,7 +142,9 @@ img {
     }
 
     .cart__item {
-        grid-template-columns: 3fr 15fr 5fr 1fr 8fr 1fr;
+        grid-template-columns: 3fr 15fr 5fr 1fr 8fr 1fr 2fr;
+        justify-content: center;
+        justify-items: start;
     }
 
     .cart__img, .cart__item-subtotal {

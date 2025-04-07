@@ -33,7 +33,7 @@ export type UseProductsContextType = {
 
 const initContextState: UseProductsContextType = {
     products: [
-/*         {
+         {
         "sku": "item0001",
         "name": "Widget",
         "price": 9.99
@@ -47,7 +47,7 @@ const initContextState: UseProductsContextType = {
         "sku": "item0003",
         "name": "Deluxe Widget",
         "price": 29.99
-        } */
+        } 
     ]
 }
 

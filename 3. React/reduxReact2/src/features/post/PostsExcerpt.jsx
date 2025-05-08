@@ -2,8 +2,12 @@ import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
 import ReactionButtons from "./ReactionButton";
 import { Link } from "react-router-dom";
+import { selectPostById } from "./PostsSlice";
+import React from 'react';
+import { useSelector } from "react-redux";
 
-const PostsExcerpt = ({ post }) => {
+let PostsExcerpt = ({ postId }) => {
+  const post = useSelector(state => selectPostById(state, postId));
   return (
     <article>
         <h2>{post.title}  </h2>
@@ -18,5 +22,9 @@ const PostsExcerpt = ({ post }) => {
     </article>
   )
 }
-
+PostsExcerpt = React.memo(PostsExcerpt)
 export default PostsExcerpt
+
+/**
+ * With react memo the component does not rerender when the prop does not change
+ */

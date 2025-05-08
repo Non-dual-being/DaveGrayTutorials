@@ -34,6 +34,15 @@ const usersSlice = createSlice({
 
 
 export const selectAllUsers = (state) => state.users
+export const selectUserById = (state, userId) => 
+(
+    state.users.find(user => String(user.id) === String(userId))
+)
+
+/**
+ * zonder de {} is de return altijd impliciet
+ */
+
 
 
 export default usersSlice.reducer

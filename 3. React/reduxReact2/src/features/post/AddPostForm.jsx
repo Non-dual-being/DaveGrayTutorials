@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewPost } from "./PostsSlice";
 import { selectAllUsers } from "../users/userSlice";
+import { useNavigate } from "react-router-dom";
 
 
 const AddPostForm = () => {
@@ -11,7 +12,7 @@ const AddPostForm = () => {
     const [addRequestsStatus, setAddRequestStatus] = useState('idle');
 
 
-    const users = useSelector(selectAllUsers)
+    const users = useSelector(selectAllUsers);
 
 
     const onTitleChanged = (e) => setTitle(e.target.value);
@@ -19,6 +20,7 @@ const AddPostForm = () => {
     const onAuthorChangend = (e) => setUsersId(e.target.value);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const canSave = [title, content, userId].every(Boolean) && addRequestsStatus === 'idle';
 
@@ -38,6 +40,7 @@ const AddPostForm = () => {
                  * Promisen eemt altijd 1 van de volgende states in (pending, fulfilled, rejected)
                  * 
                  */
+                navigate('/')
 
             } catch (err) {
                 console.error('Roninaal dindt unwrap correctly', err)

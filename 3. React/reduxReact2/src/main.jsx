@@ -5,10 +5,12 @@ import App from './App.jsx'
 import  { store } from "./app/store.jsx"
 import { Provider } from 'react-redux'
 import { fetchUsers } from './features/users/userSlice.jsx'
+import { fetchPosts } from './features/post/PostsSlice.jsx'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 
 store.dispatch(fetchUsers());
+store.dispatch(fetchPosts());
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

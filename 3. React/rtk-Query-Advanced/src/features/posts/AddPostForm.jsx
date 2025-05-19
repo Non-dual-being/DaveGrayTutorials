@@ -1,44 +1,48 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { addNewPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import { useNavigate } from "react-router-dom";
 
+import { useAddNewPostMutation, selectPostIds } from "./postsSlice";
+
 const AddPostForm = () => {
-    const dispatch = useDispatch()
+    const [addNewPost, { isLoading }] = useAddNewPostMutation();
+   
 
     const navigate = useNavigate()
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [userId, setUserId] = useState('')
-    const [addRequestStatus, setAddRequestStatus] = useState('idle')
+  
 
     const users = useSelector(selectAllUsers)
+    const orderedPostIds = useSelector(selectPostIds)
 
     const onTitleChanged = e => setTitle(e.target.value)
     const onContentChanged = e => setContent(e.target.value)
     const onAuthorChanged = e => setUserId(e.target.value)
 
 
-    const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
 
-    const onSavePostClicked = () => {
+    const canSave = [title, content, userId].every(Boolean) && !isLoading;
+
+    const onSavePostClicked = async () => {
         if (canSave) {
-            try {
-                setAddRequestStatus('pending')
-                dispatch(addNewPost({ title, body: content, userId })).unwrap()
-
+            try {  
+                const id  =
+                orderedPostIds?.length 
+                    ? String(Math.max(...orderedPostIds.map(id => Number(id))) + 1)
+                    : 1
+                await addNewPost({ id, title, body: content, userId}).unwrap()
                 setTitle('')
                 setContent('')
                 setUserId('')
                 navigate('/')
             } catch (err) {
                 console.error('Failed to save the post', err)
-            } finally {
-                setAddRequestStatus('idle')
-            }
+            } 
         }
 
     }

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { selectPostById } from "./postsSlice";
 
 const PostsExcerpt = ({ postId }) => {
-    const post = useSelector(state => selectPostById(state, postId))
+   const post = useSelector(state => selectPostById(state, postId))
 
     return (
         <article>

@@ -7,9 +7,11 @@ import { sub } from 'date-fns';
 import { apiSlice } from "../api/apiSlice";
 
 
+
 const postsAdapter = createEntityAdapter({
     sortComparer: (a, b) => b.date.localeCompare(a.date)
 })
+
 
 /**
  * normalized data
@@ -19,10 +21,14 @@ const postsAdapter = createEntityAdapter({
  */
 const initialSate = postsAdapter.getInitialState();
 
+/**
+ * je initiatal state is puur { ids: [], entities: {}}
+ */
+
 export const extendedApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getPosts: builder.query({
-            query: () => '/posts',
+            query: () => './posts',
             transformResponse: responseData => {
                 let min = 1;
                 const loadedPosts = responseData.map(post => {
@@ -38,6 +44,9 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
                 });
 
                 return postsAdapter.setAll(initialSate, loadedPosts);
+                /**
+                 * hier wat je data key gevuld met de data
+                 */
             },
             providesTags: (result, error, arg) => [
                 {type: 'Post', id: 'LIST'},
@@ -51,6 +60,108 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
              * 
              */
 
+        }),
+        getPostsByUserId: builder.query({
+            query: id => `/posts/?userId=${id}`,
+            transformResponse: responseData => {
+                 let min = 1;
+                const loadedPosts = responseData.map(post => {
+                    if (!post?.date) post.date = sub(new Date(), { minutes: min++ }).toISOString();
+                    if (!post.reactions) post.reactions = {
+                        thumbsUp: 0,
+                        wow: 0,
+                        heart: 0,
+                        rocket: 0,
+                        coffee: 0
+                    }
+                    return post;
+                });
+                return postsAdapter.setAll(initialSate, loadedPosts)
+                //dit overschrijft de getpost niet, omdat deze een aparte cachestate mee krijgt vanuit redux
+            },
+            providesTags: (result, error, arg) => {
+                return [
+                    ...result.ids.map(id => ({ type: 'Post', id}))
+                ]
+            }
+        }),
+        addNewPost: builder.mutation({
+            query: initialPost => ({
+                url: '/posts',
+                method: 'POST',
+                body: {
+                    ...initialPost,
+                    userId: Number(initialPost.userId),
+                    date: new Date().toISOString(),
+                    reactions: {
+                        thumbsUp: 0,
+                        wow: 0,
+                        heart: 0,
+                        rocket: 0,
+                        coffee: 0
+                    }
+                }
+            }),
+            invalidatesTags: [
+                { type: 'Post', id: "LIST"}
+            ]
+        }),
+        updatePost: builder.mutation({
+            query: initialPost => ({
+                url: `/posts/${initialPost.id}`,
+                method: 'PUT',
+                body: {
+                    ...initialPost,
+                    date: new Date().toISOString()
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Post', id: arg.id}
+                //the argument is your initialPost
+            ]
+        }),
+        deletePost: builder.mutation({
+            query: ({ id }) => ({
+                url: `/post/${id}`,
+                method: 'DELETE',
+                body: { id }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Post', id: arg.id}
+                //the argument is your initialPost
+            ]
+
+        }),
+        // this is what we calle a optimistic update in the ui the cache will update imidiatly and the the network request will be send, onError it wil undo
+        addReaction: builder.mutation({
+            query: (fullPost) => ({
+                url: `posts/${Number(fullPost.id)}`,
+                method: 'PATCH',
+                // In a real pp, we'd probably need to base this on user ID somehow
+                // so that a user can't do the same reaction more then once
+                body: fullPost
+            }),
+            async onQueryStarted ( fullPost, { dispatch, queryFulfilled }) {
+                // zijn twee losse object die binnen in gedeconstrueerd worden
+                //updateQueryData requires the eindpoint name an cachhe key arguments
+                //so it knows which piece of cache state to update
+                //queryFulfilled is a promise
+                //im je optimistische update doe je aan de reacties en in je netwerk doe je het volledig object
+                const patchResult = dispatch(
+                    extendedApiSlice.util.updateQueryData('getPosts', undefined, draft => {
+                        // The `draft` is Immer-wrapped and can be "mutated" like in createSlice
+                        const post = draft.entities[fullPost.id]
+                        if (post) post.reactions = fullPost.reactions
+                    })
+                )
+                try {
+                    await queryFulfilled
+                } catch {
+                    patchResult.undo()
+                }
+
+            },
+
         })
 
     })
@@ -59,12 +170,38 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetPostsQuery,
+    useGetPostsByUserIdQuery,
+    useAddNewPostMutation,
+    useUpdatePostMutation,
+    useDeletePostMutation,
+    useAddReactionMutation,
+
 } = extendedApiSlice
 
 
 /**
  * de use Get is niet random maar opgebouwd als naam de rtk query zelf
  * 
+ */
+
+
+export const selectPostsResult = extendedApiSlice.endpoints.getPosts.select();
+
+/**
+ * dit retourneert een selector op basis van memorisatie
+ * in de functie zit automatisch op basis van de state de getposts query aanroepen die het volledige data object teruggeeft
+ * De memorisatie zit hm erin dat als dat veranderd, dat ie dan pas rerenderd
+ * hioer zit naast je data ook je isError, je isloading etc in 
+ */
+
+const selectPostsData = createSelector(
+    selectPostsResult,
+    postsResult => postsResult.data
+    
+)
+
+/**
+ * alleen de data eruit filteren anders heb je ook je fulfilled , error etc info
  */
 
 
@@ -77,9 +214,11 @@ export const {
     selectById: selectPostById,
     selectIds: selectPostIds
     // Pass in a selector that returns the posts slice of state
-} = postsAdapter.getSelectors(state => state.posts)
+} = postsAdapter.getSelectors(state => selectPostsData(state) ?? initialSate)
 
-
+/**
+ * de eerte state hier is je volledige redux store dus je data maar ook je queries, en je mutatiosn
+ */
 
 
 

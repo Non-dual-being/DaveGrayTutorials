@@ -397,7 +397,15 @@
       "userId": 2,
       "id": "17",
       "title": "fugit voluptas sed molestias voluptatem provident",
-      "body": "eos voluptas et aut odit natus earum\naspernatur fuga molestiae ullam\ndeserunt ratione qui eos\nqui nihil ratione nemo velit ut aut id quo"
+      "body": "eos voluptas et aut odit natus earum\naspernatur fuga molestiae ullam\ndeserunt ratione qui eos\nqui nihil ratione nemo velit ut aut id quo",
+      "date": "2025-05-22T18:21:14.892Z",
+      "reactions": {
+        "thumbsUp": 2,
+        "wow": 0,
+        "heart": 0,
+        "rocket": 0,
+        "coffee": 0
+      }
     },
     {
       "userId": 2,
@@ -924,6 +932,20 @@
         "heart": 1,
         "rocket": 1,
         "coffee": 1
+      }
+    },
+    {
+      "id": "104",
+      "title": "mijn foufke is nat",
+      "body": "cdcv",
+      "userId": 3,
+      "date": "2025-05-22T18:22:39.738Z",
+      "reactions": {
+        "thumbsUp": 0,
+        "wow": 2,
+        "heart": 0,
+        "rocket": 8,
+        "coffee": 2
       }
     }
   ]

@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  @media (min-width: 660px) {
+    .custom-quotes::before,
+    .custom-quotes::after {
+      font-size: 8rem; /* Equivalent aan text-9xl */
+    }
+    .custom-quotes::before{
+      top: 50px;
+    }
+    .custom-quotes::after {
+      bottom: 0px;
+    }
+  }
+
+  @media (max-width: 659px) {
+    .custom-quotes::before,
+    .custom-quotes::after {
+      font-size: 4.5rem; /* Equivalent aan text-7xl */
+    }
+
+  .custom-quotes::before{
+      top: 50px;
+    }
+    .custom-quotes::after {
+      bottom: 0px;
+    }
+
+  }
+}
+
+@layer utilities {
+  .section-min-height {
+    min-height: calc(100vh - 68px);
+  }
+}

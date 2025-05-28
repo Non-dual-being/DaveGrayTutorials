@@ -3,11 +3,14 @@ const initApp = () => {
     const mobileNavMenu = document.getElementById('mobile-menu') ?? null;
 
     const toggleMobileMenu = () => {
+
         mobileNavMenu.classList.toggle('hidden');
         mobileNavMenu.classList.toggle('flex');
+        hamburgerOpenMenuButton.classList.toggle('toggle-btn');
+     
     }
 
-    hamburgerOpenMenuButton.addEventListener('click', () => {toggleMobileMenu()});
+    hamburgerOpenMenuButton.addEventListener('click', () => {toggleMobileMenu();});
     mobileNavMenu.addEventListener('click', () => {toggleMobileMenu()});
 
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Acme Rockets</title>
     <link rel="stylesheet" href="css/style.css" />
-    <script defer src="scripts/rocket.js"></script> 
+    <script defer src="scripts/rocket.js"></script>
   </head>
   <body class="min-h-screen bg-slate-50 dark:bg-black dark:text-white">
     <header class="bg-teal-700 text-white sticky top-0 z-10">
@@ -16,9 +16,12 @@
         <div>
           <button
             id="hamburger-button"
-            class="text-3xl md:hidden cursor-pointer"
+            class="text-3xl md:hidden cursor-pointer relative w-8 h-8"
           >
-            &#9776;
+            <!-- &#9776; Hamburger-->
+            <div
+              class="bg-white w-8 h-1 rounded absolute transition-all duration-500 before:content-[''] before:bg-white before:w-8 before:h-1 before:rounded before:absolute before:left-0 before:-translate-y-3 after:content-[''] after:bg-white after:w-8 after:h-1 after:rounded after:absolute after:left-0 after:translate-y-3 before:transition-all before:duration-500 after:transition-all after:duration-500"
+            ></div>
           </button>
           <!--hamburger-->
           <nav class="hidden md:block space-x-8 text-xl" aria-label="main">
@@ -30,16 +33,31 @@
       </section>
       <section
         id="mobile-menu"
-        class="hidden absolute top-0 bg-black w-full text-5xl flex-col justify-center origin-top animate-open-menu"
+        class="hidden absolute top-68 bg-black w-full text-5xl flex-col justify-center origin-top animate-open-menu"
       >
         <!--orgin-top is een transform eigenschap, de transformation bovenaan beginenn-->
+        <!--top-68 to go below header-->
         <!--flex of te wel align-self is op de cross axis-->
-        <button class="text-8xl self-end px-6">&times;</button>
-        <nav class="flex flex-col min-h-screen items-center py-8 "aria-label="mobile">
-          <a href="#hero" class="w-full text-center py-6 hover:opacity-6">Home</a>
-          <a href="#rockets" class="w-full text-center py-6 hover:opacity-6">Our Rockets</a>
-          <a href="#testimonials" class="w-full text-center py-6 hover:opacity-6">Testimonials</a>
-          <a href="#contact" class="w-full text-center py-6 hover:opacity-6">Contact us</a>
+        <!-- <button class="text-8xl self-end px-6">&times;</button> -->
+
+        <nav
+          class="flex flex-col min-h-screen items-center py-8"
+          aria-label="mobile"
+        >
+          <a href="#hero" class="w-full text-center py-6 hover:opacity-6"
+            >Home</a
+          >
+          <a href="#rockets" class="w-full text-center py-6 hover:opacity-6"
+            >Our Rockets</a
+          >
+          <a
+            href="#testimonials"
+            class="w-full text-center py-6 hover:opacity-6"
+            >Testimonials</a
+          >
+          <a href="#contact" class="w-full text-center py-6 hover:opacity-6"
+            >Contact us</a
+          >
         </nav>
       </section>
     </header>

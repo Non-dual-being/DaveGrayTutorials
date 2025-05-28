@@ -36,4 +36,18 @@
   .section-min-height {
     min-height: calc(100vh - 68px);
   }
+
+  .toggle-btn {
+    @apply [&>div::before]:translate-y-0 [&>div::before]:rotate-45 [&>div::after]:translate-y-0 [&>div::after]:-rotate-45 [&>div]:bg-transparent
+  }
 }
+
+/*
+
+* the brackets allow you to write custom or arbitary css (so orginel css no tailwind predefined
+* apply allows to use classnames instead of tailwind classes like in orignel css
+* this however has a right and wrong use case, the right usecase is to use this for javascript
+* here the [&>div] is syntax to make clear that you will select a child that is a div
+
+
+*/

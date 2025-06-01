@@ -1,0 +1,28 @@
+20250601	14:05:50	b56b72bd-c093-4d9b-a4fd-16d61e5a0b56	/new-page.html	GET
+20250601	14:05:50	07e6f93f-5491-49f9-b148-893b1edf0b84	/css/style.css	GET
+20250601	14:05:50	fd92c33c-0dee-4588-95d8-af4bac0ec292	/css/style.css	GET
+20250601	14:05:50	4831a9ef-0a72-4d89-a086-d534783c0311	/img/img1.jpg	GET
+20250601	14:05:50	ce41860c-031b-4330-bb06-43ef37ce1ecd	/img/img1.jpg	GET
+20250601	14:05:50	e74e97cd-8587-4020-b116-940388b26578	/img/img1.jpg	GET
+20250601	14:10:21	5b2e7c26-bd9d-4f2a-9f2c-a76dbb40e909	/new-page.html	GET
+20250601	14:10:21	76bc5088-0b19-4a31-9a83-a8cd76483f29	TypeError	error is not a constructor
+20250601	14:10:21	b185b137-65cf-45ae-b998-250a33833b40	/css/style.css	GET
+20250601	14:10:21	46667b2a-72f7-4a7d-8f59-2ec5a02da203	/img/img1.jpg	GET
+20250601	14:10:21	7885840b-87ab-4715-8215-82797f544fc9	/img/img1.jpg	GET
+20250601	14:10:21	fdefc1bf-b6ec-462e-8f36-b1b59caac5f9	/img/img1.jpg	GET
+20250601	14:10:21	994c291c-57ac-41a5-bf83-2edd25b69766	/css/style.css	GET
+20250601	14:10:21	46034028-f8db-4fd1-9044-4fcb9ed2fdfe	TypeError	error is not a constructor
+20250601	14:10:21	b4be87b4-9470-408f-a3c3-de2fb80b49b0	TypeError	error is not a constructor
+20250601	14:10:21	9128f335-c6ec-4c15-9fb0-8eb90a904b5d	TypeError	error is not a constructor
+20250601	14:10:21	1185ae51-8d9e-4561-a891-4dbf10a7c924	TypeError	error is not a constructor
+20250601	14:10:21	b5b6413f-0681-4a5b-aec4-ca4bd84c4ffb	TypeError	error is not a constructor
+20250601	14:10:21	f705d204-9afb-472a-8859-23dfe7f3e113	TypeError	error is not a constructor
+20250601	14:20:19	c517f107-dc94-4bb4-a650-d3ba1b38a123	/new-page.html	GET
+20250601	14:20:19	50196268-825d-40f9-8093-43c6396ad198	/css/style.css	GET
+20250601	14:20:19	03ca9d97-5f47-4a6a-8e31-f3d3d5afa368	/img/img1.jpg	GET
+20250601	14:21:34	7fb508f8-7e74-4c69-85aa-5131999b5b9a	/new-page.html	GET
+20250601	14:21:34	f2af762d-d610-4fa6-8f4d-a3da70a4b9f0	/css/style.css	GET
+20250601	14:21:34	2cae0164-1be2-4dc6-ab11-78369cf45a6e	/img/img1.jpg	GET
+20250601	14:21:49	23e24e82-526c-42ed-ae19-31dd594ed450	/new-page.html	GET
+20250601	14:21:49	4f05ef95-0e75-4a33-ad0a-b7a71a6c4237	/css/style.css	GET
+20250601	14:21:49	532eae43-d4bd-4762-a2c8-830628c8e615	/img/img1.jpg	GET

@@ -1,0 +1,8 @@
+20250605	20:17:17	566e3b5c-4821-4c5f-8174-1b80a7b3ce63	not allowed by cors
+20250605	20:17:17	128eb7f7-514e-4302-bd59-da7a0143d778	not allowed by cors
+20250605	20:22:12	0ba3a22d-26ba-4efb-ab40-e8b237f54041	https://www.geofort.nl	/zuremossel	not allowed by cors
+20250605	20:22:12	87a487ad-da0f-435f-bd9a-a46d14419925	https://www.geofort.nl	/zuremossel	not allowed by cors
+20250606	21:11:18	33c0d96b-f58a-4979-a53c-a49812197daa	undefined	/employees	res is not defined
+20250608	15:51:19	b03e0fd9-69ab-439b-97ba-fe12d2569941	undefined	/register	Expected ',' or '}' after property value in JSON at position 24 (line 1 column 25)
+20250614	11:23:31	150a1b31-8724-4777-8ce7-7b0849998247	undefined	/refresh	person is not defined
+20250614	11:24:16	ba072013-4a5e-42e9-abe7-0e175d2686c9	undefined	/refresh	usersDB.find is not a function

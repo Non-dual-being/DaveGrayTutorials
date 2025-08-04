@@ -26,6 +26,7 @@ setupListeners(store.dispatch)
  *  *-------{ computed property [] } ----------*
  * computed proberty of dynamisch sleutel pakt dynamische de waarde 
  * apiSlice.reducerpath is in dit geval de api folder, dus met haakjes pakt je die waarde
+ * gaat om een namepsace, dus geen fysieke locatie. 
  * 
  * *----{ concat }
  * aan de standaard middleware wordt de RTK query middleware toegegevoegd

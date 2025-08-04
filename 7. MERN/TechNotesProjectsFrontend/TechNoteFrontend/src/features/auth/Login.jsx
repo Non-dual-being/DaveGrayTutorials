@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { setCredentials } from './authSlice';
 import { useLoginMutation } from './authApiSlice';
 
+import usePersist from '../../hooks/usePersist';
+
 const Login = () => {
 
   const userRef = useRef();
@@ -12,6 +14,8 @@ const Login = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
+
+  const [persist, setPersist] = usePersist();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,7 +25,7 @@ const Login = () => {
   const errClass = errMsg ? "errmsg" : "offscreen";
 
   useEffect(() => {
-    useRef.current.focus()
+    userRef.current.focus()
   }, [])
 
   useEffect(() => {
@@ -30,13 +34,17 @@ const Login = () => {
 
   const handleUserInput = (e) => setUserName(e.target.value);
   const handlePwdInput = (e) => setPassword(e.target.value);
+  const handleToggle = () => setPersist(prev => !prev);
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const { accesToken } = await login({ username, password }).unwrap();
-      dispatch(setCredentials({ accesToken }))
+      const { accessToken} = await login({ username, password }).unwrap();
+      console.log(`accesToken: ${accessToken}`);
+      dispatch(setCredentials({ accessToken }))
       setUserName('');
       setPassword('');
       navigate('/dash');
@@ -51,7 +59,7 @@ const Login = () => {
         setErrMsg(err.data?.message);
       }
 
-      errRef.current.focus();
+      errRef?.current?.focus() /**de err message moet bestaan om erop te focussen */
 
     }
 
@@ -93,11 +101,22 @@ const Login = () => {
             className='form__input'
             type="password"
             id="password"
+            autoComplete="current-password"
             onChange={handlePwdInput}
             value={password}
             required
           />
           <button className='form__submit-button'>Sign in</button>
+          <label htmlFor='persist' className='form__persist'>
+            <input 
+              type="checkbox" 
+              className="form__checkbox" 
+              id="persist"
+              onChange={handleToggle}
+              checked={persist}
+            />
+            Trust this Device
+          </label>
         </form>
       </main>
       <footer>

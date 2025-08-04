@@ -34,6 +34,11 @@
   margin-bottom: 0.5em;
 }
 
+.errmsg a:any-link {
+  color: var(--ERROR);
+  text-decoration: underline;
+}
+
 .nowrap {
   white-space: nowrap;
 }
@@ -89,8 +94,7 @@ a {
   text-decoration: none;
 }
 
-a,
-a:visited {
+a:any-link {
   color: var(--LINK-COLOR);
 }
 
@@ -227,23 +231,6 @@ tr {
 
 .table__cell--inactive {
   background-color: var(--INACTIVE);
-}
-
-.table__message {
-  background-color: var(--TABLE-BGCOLOR);
-  color: var(--TABLE-COLOR);
-  text-align: center;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  grid-column: 1 / -1; /* neemt alle kolommen in */
-  grid-row: 1;
-  border: 1px solid var(--TABLE-COLOR);
-  border-bottom: 3px solid var(--TABLE-COLOR);
-  padding: 0.3rem 0;
-  box-shadow:  0px 0px 1px 1px var(--TABLE-COLOR);
-  opacity: 0.5;
 }
 
 /* ||  NOTE */

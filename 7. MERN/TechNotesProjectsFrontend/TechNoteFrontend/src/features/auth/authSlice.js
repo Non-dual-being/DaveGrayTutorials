@@ -5,8 +5,8 @@ const authSlice = createSlice({
     initialState: { token: null },
     reducers: {
         setCredentials: (state, action) => {
-            const { accesToken } = action.payload
-            state.token = accesToken
+            const { accessToken  } = action.payload
+            state.token = accessToken || null;
         },
         logOut: (state, action) => {
             state.token = null
@@ -21,3 +21,7 @@ export default authSlice.reducer
 
 export const selectCurrentToken = (state) => state.auth.token
 
+/**
+ * de selector de auth verwijst naar de naam
+ * 
+ */

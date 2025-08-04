@@ -3,9 +3,11 @@ import {  useUpdateNoteMutation, useDeleteNoteMutation } from "./notesApiSlice";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
+import useAuth from "../../hooks/useAuth";
 
 
 const EditNoteForm = ({ users, note }) => {
+    const { isAdmin, isManager } = useAuth();
 
     const [updateNote, {
         isLoading : isUpdating,
@@ -44,7 +46,7 @@ const EditNoteForm = ({ users, note }) => {
     const onUserIdChanged = e => setUserid(e.target.value);
 
     const canSave = !!title && !!text && !!userId && !isUpdating && !isDeleting;
-    const canDelete = !isUpdating && !isDeleting;
+    const canDelete = !isUpdating && !isDeleting && (isAdmin || isManager);
     
     const onSaveNoteClicked = async (e) => {
         if (canSave) {
@@ -116,14 +118,21 @@ const EditNoteForm = ({ users, note }) => {
                         >
                             <FontAwesomeIcon icon={faSave} />
                         </button>
-                        <button 
-                            className="icon-button"
-                            title="Delete"
-                            onClick={onDeleteNoteClicked}
-                            disabled={!canDelete}
-                        >
-                            <FontAwesomeIcon icon={faTrashCan} />
-                        </button>
+                        {   
+                            (isAdmin || isManager) 
+                            
+                            &&
+
+                            (<button 
+                                className="icon-button"
+                                title="Delete"
+                                onClick={onDeleteNoteClicked}
+                                disabled={!canDelete}
+                            >
+                                <FontAwesomeIcon icon={faTrashCan} />
+                            </button>)
+                        }
+                        
                     </div>
                 </div>
                 <label 

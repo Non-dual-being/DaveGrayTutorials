@@ -1,24 +1,26 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-
-import { useSelector } from "react-redux";
 import { selectNotebyId } from "./notesApiSlice";
-import { selectUserbyId } from "../users/usersApiSlice";
+import { useSelector } from "react-redux";
 
 
 
-const Note = ({ noteId }) => {
+
+const Note = ({ noteId, users }) => {
   const note = useSelector(state => selectNotebyId(state, noteId));
+
   const navigate = useNavigate();
 
   if (note){
+    const user = users[note.user]
+    if (!user) return null;
+
     const created = new Date(note.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'long'})
     const updated = new Date(note.updatedAt).toLocaleDateString('en-US', { day: 'numeric', month: 'long'})
 
     const handleEdit = () => navigate(`/dash/notes/${noteId}`);
 
-    const user = useSelector(state => selectUserbyId(state, note.user));
 
     return (
         <tr className="table__row">
@@ -32,7 +34,7 @@ const Note = ({ noteId }) => {
             <td className="table__cell note__created">{created}</td>
             <td className="table__cell note__updated">{updated}</td>
             <td className="table__cell note__title">{note.title}</td>
-            <td className="table__cell note__username">{user.username}</td>
+            <td className="table__cell note__username">{user?.username}</td>
             <td className="table__cell">
                 <button
                     className="icon-button table__button"

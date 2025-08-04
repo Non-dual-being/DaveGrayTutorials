@@ -1,5 +1,5 @@
 import { apiSlice } from "../../app/api/apiSlice";
-import { logOut } from "./authSlice";
+import { logOut, setCredentials } from "./authSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -7,7 +7,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
             query: credentials => ({
                 url: '/auth',
                 method: 'POST',
-                body: { ...credentials} //username && password
+                body: { ...credentials}, //username && password
+                credentials: 'include'
             })
         }),
         sendLogout: builder.mutation({
@@ -17,14 +18,24 @@ export const authApiSlice = apiSlice.injectEndpoints({
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled}) {
                 try {
-                    // const { data } = /** this would be cookie cleared */
-                    await queryFulfilled
-
+                    const { data } = await queryFulfilled /** this would be cookie cleared */
+                
                     //token to null in local state
                     dispatch(logOut())
 
-                    //clear out cache
-                    dispatch(apiSlice.util.resetApiState())
+                    /**
+                     * clear out cache, the timeout is to make sure when you logout from
+                     * notes list or userlist
+                     * that the unsubscribing kicks in en the component is umountend
+                     * see the prefetch 
+                    */
+
+
+                    setTimeout(() => {
+                      dispatch(apiSlice.util.resetApiState())
+                    }, 500)
+              
+
                     } catch (err) {
                     console.log(err);
 
@@ -36,7 +47,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: '/auth/refresh',
                 method: 'GET'
-            })
+            }),
+            async onQueryStarted(arg, {dispatch, queryFulfilled}){
+                try {
+                    const { data } = await queryFulfilled
+                    const { accessToken } = data
+                    dispatch(setCredentials({ accessToken }))
+                } catch (err) {
+                    console.log(err)
+                }
+            }
         })
     })
 })

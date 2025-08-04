@@ -7,7 +7,7 @@ import ROLES from "../../config/roles";
 
 
 const NewUserForm = () => {
-  const USER_REGEX = /^[A-z]{3,20}$/
+  const USER_REGEX = /^[A-z\-\_]{3,20}$/
   const PWD_REGEX = /^[A-z0-9!@$%]{4,20}$/
 
   const [addNewUser, {

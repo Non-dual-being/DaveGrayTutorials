@@ -10,29 +10,44 @@ import EditUser from './features/users/EditUser';
 import NewUserForm from './features/users/NewUserForm';
 import EditNote from './features/notes/EditNote';
 import NewNote from './features/notes/NewNote';
-import Prefetch from './config/Prefetch';
+import Prefetch from './features/auth/Prefetch';
+import PersistLogin from "./features/auth/PersistLogin";
+import RequireAuth from "./features/auth/RequireAuth";
+import ROLES from "./config/roles";
 
 function App() {
   return (
     <Routes>
+      {/* 'Public Routes' */}
       <Route path='/' element={<Layout/>}>
         <Route index element={<PublicPage />} />
         <Route path="login" element={<Login />} />
-        <Route element={<Prefetch/>}>  
-          <Route path="dash" element={<DashLayout />}>
-            <Route index element={<Welcome />} />
-            <Route path="users">
-              <Route index element={<UsersList />} />            
-              <Route path=":id" element={<EditUser />} />
-              <Route path="new" element={<NewUserForm />} />
+        
+        {/* 'Protected Routes' */}
+        <Route element={<PersistLogin/>}> 
+        {/**je heb je persist login nodig om als er geen token is, dat je de roles uit je token kan halen met na de refresh */}
+          <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+            <Route element={<Prefetch/>}>  
+                <Route path="dash" element={<DashLayout />}>{/**dash is gewrapped om prefetch en persistlogin */}
+                  <Route index element={<Welcome />} />
+
+                  <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Admin]} />}>
+                    <Route path="users">
+                      <Route index element={<UsersList />} />            
+                      <Route path=":id" element={<EditUser />} />
+                      <Route path="new" element={<NewUserForm />} />
+                    </Route>
+                  </Route>
+                  
+                  <Route path="notes">
+                    <Route index element={<NotesList />} />
+                    <Route path=":id" element={<EditNote />} />
+                    <Route path="new" element={<NewNote />} />
+                  </Route>
+                </Route> {/* 'end dash'  */}
+              </Route>
             </Route>
-            <Route path="notes">
-              <Route index element={<NotesList />} />
-              <Route path=":id" element={<EditNote />} />
-              <Route path="new" element={<NewNote />} />
-            </Route>
-          </Route>
-        </Route>
+        </Route> {/* 'End protected routers' */}
       </Route>
     </Routes>
   )

@@ -19,26 +19,26 @@ const getAllNotes = asyncHandler(
             const notesornote = notes.length > 1
                 ?   "notes"
                 :   "note"
-            return res.status(200).json({message: `Found ${notes.length} ${notesornote}`, notes});
+            return res.status(200).json({message: `The list consist of ${notes.length} ${notesornote} `, notes});
         }       
     }
 )
 const createNewNote = asyncHandler(
     async (req, res) => {
-        const { userId, title, text } = req.body //pakt hier de waarden op basis van de sleutel
+        const { user, title, text } = req.body //pakt hier de waarden op basis van de sleutel
 
 
-        const validRequest = [userId, text, title].every(field => typeof field === "string" && field.length > 0);
+        const validRequest = [user, text, title].every(field => typeof field === "string" && field.length > 0);
 
 
         if (validRequest){
-            const foundUser = await Users.findById(userId);
+            const foundUser = await Users.findById(user);
             if (!foundUser){
-                return res.status(400).json({message: `The provide userId ${userId} doesn't corespond with a user`, notes: {}});
+                return res.status(400).json({message: `The provide userId ${user} doesn't corespond with a user`, notes: {}});
             } else if (!foundUser.active){
-                return res.status(400).json({message: `The user ${foundUser.username} with id: ${userId} is currently not active`, notes: {}});
+                return res.status(400).json({message: `The user ${foundUser.username} with id: ${user} is currently not active`, notes: {}});
             } else {
-                 const notesObject = { user: userId, title, text, completed: false};
+                 const notesObject = { user, title, text, completed: false};
                  const createdNote = await Notes.create(notesObject);
                  if (createdNote){
                     return res.json(
@@ -57,8 +57,8 @@ const createNewNote = asyncHandler(
 
 const updateNote = asyncHandler(
     async (req, res) => {
-        const { id, userId, title, text, completed } = req.body
-        const requiredFields = [ id, userId ].every(field => typeof field === "string" && field.length > 0);
+        const { id, user, title, text, completed } = req.body
+        const requiredFields = [ id, user ].every(field => typeof field === "string" && field.length > 0);
 
 
         if (!requiredFields) return res.status(400).json({
@@ -73,15 +73,24 @@ const updateNote = asyncHandler(
             notes: {}
         })
 
-        if (userId !== noteToUpdate.user.toString()) return res.status(400).json({
-            message : `Provided userId ${userId} does not correspond with the user of the ticket`,
+/*         
+        if (user !== noteToUpdate.user.toString()) return res.status(400).json({
+            message : `Provided userId ${user} does not correspond with the user of the ticket`,
             notes: {}
+        })
+            todo:dave gray laat toe dat je een andere eigenaar toewijst aan een ticket
+ */
+        const ProvidedUserExists = await Users.exists({ _id : user });
+
+        if (!ProvidedUserExists) return res.status(400).json({
+            message: `The provide userid ${user} doesnt refer to a existing User`,
+            notes : {}
         })
 
         const updateNoteObject = {
-            user : noteToUpdate.user,
-            title : '',
-            text  : '',
+            user,
+            title,
+            text,
             completed : false
         }
 
@@ -96,6 +105,8 @@ const updateNote = asyncHandler(
         updateNoteObject.completed = typeof completed === 'boolean'
             ? completed
             : noteToUpdate.completed;
+        
+        
 
         const update = await Notes.findByIdAndUpdate(
             id,

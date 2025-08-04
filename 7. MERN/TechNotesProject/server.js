@@ -27,6 +27,9 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.use('/', router);
 
+app.use('/auth', require('./routes/authRoutes'));
+
+
 app.use('/users', require('./routes/userRoutes'));
 
 app.use(/^\/notes$/, require(path.join(__dirname, 'routes', 'notesRoutes')));
@@ -55,3 +58,13 @@ mongoose.connection.on('error', err => {
         'mongoErrLog.log'
     )
 })
+
+
+/** -------  [require('dontenv').config explanation]------- */
+
+/**
+ * bij de opstart worden je variabelen geladen in je .env
+ * In Globale VARIABELE proccess.env kom ze te staan
+ * in andere bestand is die globale variable beschikbaar
+ * 
+ */

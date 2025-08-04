@@ -27,7 +27,7 @@ const getAllUsers = asyncHandler(
         if (!users || !users.length) {
             return res.status(200).json({ message: 'No users found', users: []});
         } else {
-            return res.json({message: `Found ${users.length} users`, users});
+            return res.json({message: `Technotes has ${users.length} users`, users});
         }       
     }
 )
